@@ -1,6 +1,6 @@
 let currentPokemon;
 
-async function renderAllPokemons() {
+async function loadAllPokemons() {
   let url = "https://pokeapi.co/api/v2/pokemon/squirtle";
   let response = await fetch(url);
   currentPokemon = await response.json();
@@ -9,5 +9,7 @@ async function renderAllPokemons() {
 }
 
 function renderPokemonInfo() {
-  document.getElementById("pokeName").innerHTML = currentPokemon["name"];
+  document.getElementById("pokemonName").innerHTML = currentPokemon["name"];
+  document.getElementById("pokemonImage").src =
+    currentPokemon["sprites"]["front_shiny"];
 }

@@ -3,14 +3,44 @@ body {
 }
 
 
+header {
+    background-color: rgb(184, 187, 4);
+    border-bottom: 2px solid #005cbf;
+}
 
+header img {
+    width: 120px;
+    height: 80px;
+    opacity: 0.7;
+}
 
-#pokeCard {
-    background-color: rgba(120, 3, 3, 0.764);
+#mainContainer {
+    background: linear-gradient(45deg, #005cbf, #ffc500);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100vh;
+}
+
+#pokedex {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(168, 193, 5, 0.764);
     min-height: 35vh;
-    width: 15vw;
-    border: 2px solid green;
-    border-radius: 10px;
+    width: 300px;
     margin-top: 20px;
-    margin-left: 20px;
+    color: rebeccapurple;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+#infoContainer {
+    background-color: aliceblue;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    height: 100px;
+    width: 300px;
+    margin-top: -30px;
 }
