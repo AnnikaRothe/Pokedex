@@ -4,7 +4,7 @@ let listOfLoadedPokemons = [];
 
 // Funktion zum Laden von Pokémon-Daten
 async function loadPokemons() {
-  // Schleife für das Laden von Pokémon-Daten von currentLoadedPokemon bis loadedPokemon
+  // Schleife für das Laden von Pokémon-Daten von currentLoadedPokemon
   for (let i = currentLoadedPokemon; i < loadedPokemon; i++) {
     // URL für die Anfrage an die PokeAPI erstellen, um Daten für das aktuelle Pokémon zu erhalten
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
@@ -23,13 +23,13 @@ async function loadPokemons() {
       response,
       url
     );
-    loadPokemonInfo(i);
+    showPokemons(i);
     loadPokemonType(i, currentPokemon);
   }
 }
 
 //Funktion um die runtergeladenen Infos anzuzeigen
-function loadPokemonInfo(i) {
+function showPokemons(i) {
   // Name anzeigen
   document.getElementById(`pokemonName${i}`).innerHTML = currentPokemon["name"];
   //Bild einfügen
@@ -62,4 +62,29 @@ function fromImageToIcon(pokemonType) {
   return `
 <img src="img/${pokemonType}.png" class="categorieIcon"></img>
 `;
+}
+
+function loadMorePokemons() {
+  //sponsored by ChatGPT
+  currentLoadedPokemon = loadedPokemon; // Speichert die Anzahl der bisher geladenen Pokémon
+  loadedPokemon += 21; // Erhöht die Anzahl der zu ladenden Pokémon um 21
+  loadPokemons(); // Ruft die Funktion auf, um weitere Pokémon zu laden
+
+  if (!isLoading) {
+    // Überprüft, ob bereits ein Ladevorgang im Gange ist
+    isLoading = true; // Setzt isLoading auf true, um anzuzeigen, dass ein Ladevorgang gestartet wurde
+    loadButton.disabled = true; // Deaktiviert den Load Button, um mehrfaches Klicken zu verhindern
+
+    const start = loadedCount; // Speichert den Startindex für das Laden neuer Pokémon-Karten
+    const end = Math.min(loadedCount + 3, pokemonData.length); // Berechnet den Endindex für das Laden neuer Pokémon-Karten
+
+    for (let i = start; i < end; i++) {
+      const newCard = createPokemonCard(pokemonData[i]); // Erzeugt eine neue Pokémon-Karte
+      pokemonList.appendChild(newCard); // Fügt die neue Pokémon-Karte zur Liste hinzu
+      loadedCount++; // Erhöht den Zähler der geladenen Pokémon-Karten
+    }
+
+    isLoading = false; // Setzt isLoading wieder auf false, um anzuzeigen, dass der Ladevorgang abgeschlossen ist
+    loadButton.disabled = false; // Aktiviert den Load Button wieder
+  }
 }
