@@ -1,8 +1,7 @@
 let loadedPokemon = 21; // so viele werden am Stück geladen
 let currentLoadedPokemon = 1;
-let listOfLoadedPokemons = [];
+let listOfLoadedPokemon = [];
 
-// Funktion zum Laden von Pokémon-Daten
 async function loadPokemons() {
   // Schleife für das Laden von Pokémon-Daten von currentLoadedPokemon
   for (let i = currentLoadedPokemon; i < loadedPokemon; i++) {
@@ -15,7 +14,7 @@ async function loadPokemons() {
     // Um die geladenen Pokémon-Daten in der Konsole anzuzeigen (nur so sehe ich den Pfad zu den verschiedenen Infos/Dateien )
     console.log("Loaded Pokemon", currentPokemon);
     // Das currentPokemon-Objekt der Liste der geladenen Pokémon hinzufügen
-    listOfLoadedPokemons.push(currentPokemon);
+    listOfLoadedPokemon.push(currentPokemon);
     // Das HTML für das geladene Pokémon generieren und zum mainContainer hinzufügen
     document.getElementById("mainContainer").innerHTML += loadPokemonHTML(
       i,
@@ -86,5 +85,45 @@ function loadMorePokemons() {
 
     isLoading = false; // Setzt isLoading wieder auf false, um anzuzeigen, dass der Ladevorgang abgeschlossen ist
     loadButton.disabled = false; // Aktiviert den Load Button wieder
+  }
+}
+
+function filter() {
+  // Den eingegebenen Suchtext abrufen und in Kleinbuchstaben umwandeln
+  let search = document.getElementById("search").value;
+  search = search.toLowerCase();
+
+  // Den Hauptcontainer leeren, um Platz für die neuen Ergebnisse zu machen
+  document.getElementById("mainContainer").innerHTML = "";
+
+  // Durch die Liste der geladenen Pokémon iterieren
+  for (let i = 0; i < listOfLoadedPokemon.length; i++) {
+    // Den Namen des aktuellen Pokémon in Kleinbuchstaben abrufen
+    let pokemon = listOfLoadedPokemon[i]["name"].toLowerCase();
+    currentPokemon = listOfLoadedPokemon[i];
+
+    // Überprüfen, ob der Name des Pokémon den Suchtext enthält
+    if (listOfLoadedPokemon[i]["name"].includes(search)) {
+      // Das HTML für das gefundene Pokémon zum Hauptcontainer hinzufügen
+      document.getElementById("mainContainer").innerHTML += loadPokemonHTML(
+        i,
+        pokemon
+      );
+
+      // Die Informationen des Pokémon anzeigen
+      showPokemons(i);
+
+      // Den Typ des Pokémon laden und anzeigen
+      loadPokemonType(i, currentPokemon);
+    }
+  }
+
+  // Überprüfen, ob das Suchfeld leer ist
+  if (search === "") {
+    // Das Suchfeld ist leer, daher den Button mit der ID "btn" wieder einblenden
+    document.getElementById("btn").style.display = "flex";
+  } else {
+    // Das Suchfeld ist nicht leer, daher den Button mit der ID "btn" ausblenden
+    document.getElementById("btn").style.display = "none";
   }
 }
