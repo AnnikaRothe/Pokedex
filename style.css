@@ -4,7 +4,7 @@ body {
     height: 100vh;
 }
 
-.background-image {
+.backgroundImage {
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +37,6 @@ body {
     width: 85px;
     height: 85px;
     opacity: 0.7;
-
 }
 
 
@@ -59,7 +58,6 @@ body {
     border: double 5px rgb(172, 11, 11);
     margin: 25px;
     box-shadow: 0 0 20px 0px #ffc500;
-
 }
 
 
@@ -80,7 +78,6 @@ body {
 
 .mainCardImage img {
     margin-left: 35px;
-    z-index: 2;
     height: 190px;
     display: flex;
     filter: drop-shadow(7px 10px 2px rgba(42, 6, 6, 0.575));
@@ -151,20 +148,18 @@ body {
 .button {
     color: #f3efef;
     background: linear-gradient(to bottom, rgba(255, 197, 0, 1), rgba(0, 92, 191, 1), rgb(134, 11, 11), rgba(255, 197, 0, 0));
-    border-style: inset;
     border: 5px solid #ff000020;
-    border-radius: 20px;
-    padding: 15px 25px;
+    border-radius: 10px;
+    padding: 7px 7px;
     font-size: 20px;
-    letter-spacing: 5px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 50px;
     transition: all 0.2s;
-
+    opacity: 0.7;
 }
 
-.button:active {
+.button:hover {
     transform: scale(0.95);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -188,7 +183,7 @@ input {
     outline: none;
     box-shadow: 0px 0px 3px 3px #afe60877;
     z-index: 2;
-    cursor: pointer;
+    cursor: auto;
 }
 
 
@@ -199,8 +194,434 @@ input::placeholder {
 }
 
 
+
+#cardOverlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(35 34 34 / 95%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+
+
+
+.BigCard {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    animation: flip 2s forwards;
+    box-shadow: 0 0 20px 0px #ffc500;
+    border: double 5px rgb(172, 11, 11);
+    border-radius: 0px;
+    width: 375px;
+    height: 500px;
+    margin: 25px;
+    font-size: 28px;
+}
+
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(90deg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+
+.x {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    padding: 7px;
+    cursor: pointer;
+    background-color: #d3ee0b51;
+    border-radius: 10px;
+}
+
+.left {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    left: -400%;
+    padding: 7px;
+    cursor: pointer;
+    background-color: #d3ee0b51;
+    border-radius: 10px;
+}
+
+.right {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    left: 400%;
+    padding: 7px;
+    cursor: pointer;
+    background-color: #d3ee0b51;
+    border-radius: 10px;
+}
+
+
+.cardOverlay img {
+    width: auto;
+    height: 368px;
+    display: flex;
+}
+
+.cardImgOverlay {
+    max-width: 345px;
+    max-height: 320px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+h6 {
+    font-size: 15px;
+    margin: 0;
+    color: white;
+    text-align: center;
+    display: none;
+}
+
+.descriptionOverlay {
+    margin-top: 0px;
+    margin-bottom: -5px;
+    color: white;
+    text-align: center;
+}
+
+.pokeNumber {
+    padding-left: 16px;
+    color: white;
+    margin: 0;
+    padding-top: 10px;
+    font-size: 30px;
+}
+
+
+.cardOverlay.front {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+
+.cardOverlay.back {
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+
+.imgBack {
+    height: 130px !important;
+    padding-left: 15px;
+}
+
+.descriptionBack {
+    color: #f3efef;
+    font-size: 30px;
+    text-align: center;
+}
+
+.pokemonWeight {
+    font-size: 10px;
+    padding-left: 11px;
+    color: white;
+    padding-top: 20px;
+    flex-direction: column;
+    text-align: center;
+    line-height: 5px;
+}
+
+.pokemonHeight {
+    font-size: 10px;
+    padding-left: 15px;
+    color: white;
+    padding-top: 20px;
+    flex-direction: column;
+    text-align: center;
+    line-height: 5px;
+    padding-right: 15px;
+}
+
+
+.sections {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    /* Übergangseffekt für die Textfarbe */
+}
+
+.sections:hover {
+    color: rgba(255, 0, 0, 0.595);
+    /* Neue Textfarbe, wenn der Bereich gehovert wird */
+}
+
+
+h3 {
+    font-size: 20px;
+    margin: 25px;
+}
+
+
+.sectionCards {
+    height: 175px;
+    margin-right: 25px;
+    border: #000000;
+}
+
+.moveContainer {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 170px;
+    width: 300px;
+    text-align: center;
+    padding-right: 12px;
+}
+
+.moveCard {
+    padding-left: 41px;
+    padding-right: 5px;
+}
+
+.moveSection {
+    display: flex;
+    flex-wrap: wrap;
+    height: 143px;
+
+}
+
+.move {
+    margin: 2px;
+    color: rgb(224, 186, 186);
+    border: solid 1px rgb(13, 62, 2);
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.abilityContainer {
+    height: 174px;
+    width: 330px;
+    text-align: center;
+    padding-right: 12px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.abilityCard {
+    padding-left: 41px;
+    padding-right: 5px;
+}
+
+.ability {
+    margin: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: rgb(224, 186, 186);
+    border: solid 1px rgb(13, 62, 2);
+    text-align: center;
+    border-radius: 5px;
+
+}
+
+
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(44, 40, 40);
+    border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #036609;
+    border-radius: 2px;
+}
+
+
+
+
+.normal {
+    background: linear-gradient(1deg, #d5ee0b, rgba(246, 242, 242, 0.69));
+}
+
+.fire {
+    background: linear-gradient(1deg, rgb(212 7 7), rgba(241, 236, 236, 0.69));
+}
+
+.water {
+
+    background: linear-gradient(1deg, rgb(14 104 126), rgba(241, 237, 237, 0.69));
+}
+
+.grass {
+    background: linear-gradient(1deg, rgb(24 137 17), rgba(232, 224, 224, 0.69));
+}
+
+.electric {
+    background: linear-gradient(1deg, rgb(237 251 51), rgba(239, 231, 231, 0.69));
+}
+
+.ice {
+    background: linear-gradient(1deg, rgb(158, 240, 245), rgba(246, 240, 240, 0.69));
+}
+
+.fighting {
+    background: linear-gradient(1deg, rgb(241 181 48), rgba(235, 227, 227, 0.69));
+}
+
+.poison {
+    background: linear-gradient(1deg, rgb(24 137 17), rgba(239, 230, 230, 0.69));
+}
+
+.ground {
+    background: linear-gradient(1deg, rgb(77 7 7), rgba(249, 246, 246, 0.69));
+}
+
+.flying {
+    background: linear-gradient(1deg, rgb(36 168 202), rgba(235, 229, 229, 0.69));
+}
+
+.psychic {
+    background: linear-gradient(1deg, #c40606, rgba(173, 167, 167, 0.69));
+}
+
+.bug {
+    background: linear-gradient(1deg, #159d07, rgba(177, 174, 174, 0.69));
+}
+
+.rock {
+    background: linear-gradient(1deg, rgb(72 72 72), rgba(172, 169, 169, 0.69));
+}
+
+.ghost {
+    background: linear-gradient(1deg, #fdfeff, rgb(31 9 9 / 69%));
+}
+
+.dark {
+    background: linear-gradient(1deg, #000000, rgb(31 9 9 / 69%));
+}
+
+.dragon {
+    background: linear-gradient(1deg, #ee650b, rgb(31 9 9 / 69%));
+}
+
+.steel {
+    background: linear-gradient(1deg, rgb(166, 165, 165), rgb(31 9 9 / 69%));
+}
+
+.fairy {
+    background: linear-gradient(1deg, #fe0f83, rgb(31 9 9 / 69%));
+}
+
+
+
+
 @media (max-width: 414px) {
     .logoYellow {
         display: none;
+    }
+}
+
+@media(max-width:500px) {
+    .left {
+        left: -300%;
+    }
+
+    .right {
+        left: 300%;
+    }
+
+    .imgBack {
+        height: 60px !important;
+    }
+
+    .descriptionBack {
+        font-size: 15px !important;
+    }
+
+
+
+
+    .cardOverl {
+        width: 250px;
+        height: 336px;
+        font-size: 16px;
+
+    }
+
+    .cardOverl img {
+
+        height: 245px;
+
+    }
+
+    .cardImgOverl {
+        max-width: 260px;
+        max-height: 220px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .abilitycontainer {
+        width: 200px;
+    }
+}
+
+@media (max-width: 414px) {
+    .pokemon-logo {
+        width: 370px;
+    }
+
+    h6 {
+        display: inherit;
+    }
+}
+
+@media (max-width: 376px) {
+    .pokemon-logo {
+        width: 320px;
+    }
+}
+
+@media (max-width: 330px) {
+    .pokemon-logo {
+        width: 280px;
+    }
+}
+
+@media (max-width: 290px) {
+    .pokemon-logo {
+        width: 250px;
     }
 }
