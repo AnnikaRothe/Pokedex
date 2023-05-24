@@ -1,6 +1,7 @@
 let loadedPokemon = 21; // so viele werden am Stück geladen
 let currentLoadedPokemon = 1;
 let listOfLoadedPokemon = [];
+let loading = false; //damit beim mehrmaligen Drücken des Buttons die Funktion nicht mehrmals ausgeführt wird, bevor der Ladevorgang beendet ist
 
 async function loadPokemons() {
   // Schleife für das Laden von Pokémon-Daten von currentLoadedPokemon
@@ -25,6 +26,7 @@ async function loadPokemons() {
     showPokemons(i);
     loadPokemonType(i, currentPokemon);
   }
+  loading = false;
 }
 
 //Funktion um die runtergeladenen Infos anzuzeigen
@@ -70,14 +72,17 @@ function fromImageToIcon(pokemonType) {
 }
 
 function loadMorePokemons() {
-  // Speichert die Anzahl der bisher geladenen Pokémon
-  currentLoadedPokemon = loadedPokemon;
+  if (!loading) {
+    loading = true;
+    // Speichert die Anzahl der bisher geladenen Pokémon
+    currentLoadedPokemon = loadedPokemon;
 
-  // Erhöht die Anzahl der zu ladenden Pokémon um 21
-  loadedPokemon += 21;
+    // Erhöht die Anzahl der zu ladenden Pokémon um 21
+    loadedPokemon += 21;
 
-  // Ruft die Funktion auf, um weitere Pokémon zu laden
-  loadPokemons();
+    // Ruft die Funktion auf, um weitere Pokémon zu laden
+    loadPokemons();
+  }
 }
 
 function filter() {
