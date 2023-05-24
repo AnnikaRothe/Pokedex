@@ -1,5 +1,5 @@
 function loadPokemonHTML(i) {
-  return `
+  return /*html*/ `
   
   <div class="card2" >
     <div class="mainCard" >
@@ -13,10 +13,7 @@ function loadPokemonHTML(i) {
   </div>
   <div>
   <h1 class="name" id="pokemonName${i}">#</h1>
-  </div>
-                
-                
-            
+  </div>  
             <div class="mainCardImage">
        <img   src="" id="pokemonImage${i}" onclick="openOverlayCard(${i})">
         </div>
@@ -27,23 +24,19 @@ function loadPokemonHTML(i) {
 }
 
 function generateOverlayCardHTML(i, currentPokemon) {
-  return `
+  return /*html*/ `
   <div><img class="x" src="img/x.png" alt="exit" onclick="closeOverlayCard()"></div>
       
-  <div><img class="left" id="left" src="img/left.png" alt="previousImg"></div>
+  <div><img id="left" src="img/left.png" alt="back"></div>
   <div class="BigCard">
 <div class="cardOverlay front">            
   
   <div class="cardHeadline">
       <p class="pokeNumber" id="">#${currentPokemon["id"]}</p>        
-      <div class="typeCard" id="typeCard${i}">
-          <div style="display:flex">
-          ${checkSecondType(currentPokemon)} 
-          </div>
-      </div>
+      
   </div>
   <div class="cardImgOverlay"><img src="${
-    currentPokemon["sprites"]["other"]["home"]["front_default"]
+    currentPokemon["sprites"]["back_shiny"]
   }"></div>
   <div>
       <h1 class="descriptionOverlay" id="">${currentPokemon["name"]}</h1>      
@@ -62,16 +55,14 @@ function generateOverlayCardHTML(i, currentPokemon) {
   </div>
   
   <div class="cardImgOverlay cardImgBack ">
-  <div class="pokemonWeight"><h3>Weight:</h3><div><h3>${
+  <div class="pokemonWeight"><p>  Weight:</p><div><p>${
     currentPokemon["weight"] / 10 // durch 10 teilen, da Ergebnis zu hoch
-  } kg</h3></div>
+  } kg</p></div>
   </div>
-  <img class="imgBack" src="${
-    currentPokemon["sprites"]["other"]["home"]["front_default"]
-  }">
-  <div class="pokemonHeight"><h3>Height:</h3><div><h3>${
+  <img class="imgBack" src="${currentPokemon["sprites"]["front_shiny"]}">
+  <div class="pokemonHeight"><p>Height:  </p><div><p>${
     currentPokemon["height"] / 10
-  } m</h3></div>
+  } m</p></div>
   </div>
   </div>
   
@@ -81,8 +72,9 @@ function generateOverlayCardHTML(i, currentPokemon) {
       }</h1>        
   </div>
   <div class="sections">
-      <div onclick="renderPokemonMoves(${i})" id="movesSection"><h3>Moves</h3></div>
-      <div onclick="renderPokemonAbility(${i})" id="abilitySection"><h3>Abilities</h3></div>
+  <div  onclick="renderPokemonMoves(${i}); event.stopPropagation()" id="movesSection"><h3 class= "colorSection">Moves</h3></div>
+  <div  onclick="renderPokemonAbility(${i}); event.stopPropagation()" id="abilitySection"><h3 class= "colorSection">Abilities</h3></div>
+  
   </div>
 
   <div class="sectionCards" id="sectionCards">
@@ -91,6 +83,6 @@ function generateOverlayCardHTML(i, currentPokemon) {
    </div>
 </div>
 </div>
-<div><img class="right" id="right" src="img/right.png" alt="nextImg"></div>
+<div><img id="right" src="img/right.png" alt="forward"></div>
   `;
 }

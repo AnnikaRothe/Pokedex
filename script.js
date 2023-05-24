@@ -78,36 +78,6 @@ function loadMorePokemons() {
 
   // Ruft die Funktion auf, um weitere Pokémon zu laden
   loadPokemons();
-
-  if (!isLoading) {
-    // Überprüft, ob bereits ein Ladevorgang im Gange ist
-    isLoading = true;
-
-    // Deaktiviert den Load Button, um mehrfaches Klicken zu verhindern
-    loadButton.disabled = true;
-
-    let start = loadedCount; // Speichert den Startindex für das Laden neuer Pokémon-Karten
-
-    // Berechnet den Endindex für das Laden neuer Pokémon-Karten
-    let end = Math.min(loadedCount + 3, pokemonData.length);
-
-    for (let i = start; i < end; i++) {
-      // Erzeugt eine neue Pokémon-Karte
-      let newCard = createPokemonCard(pokemonData[i]);
-
-      // Fügt die neue Pokémon-Karte zur Liste hinzu
-      pokemonList.appendChild(newCard);
-
-      // Erhöht den Zähler der geladenen Pokémon-Karten
-      loadedCount++;
-    }
-
-    // Setzt isLoading wieder auf false, um anzuzeigen, dass der Ladevorgang abgeschlossen ist
-    isLoading = false;
-
-    // Aktiviert den Load Button wieder
-    loadButton.disabled = false;
-  }
 }
 
 function filter() {
@@ -132,21 +102,12 @@ function filter() {
         pokemon
       );
 
-      // Die Informationen des Pokémon anzeigen
-      showPokemons(i);
-
       // Den Typ des Pokémon laden und anzeigen
       loadPokemonType(i, currentPokemon);
-    }
-  }
 
-  // Überprüfen, ob das Suchfeld leer ist
-  if (search === "") {
-    // Das Suchfeld ist leer, daher den Button mit der ID "btn" wieder einblenden
-    document.getElementById("btn").style.display = "flex";
-  } else {
-    // Das Suchfeld ist nicht leer, daher den Button mit der ID "btn" ausblenden
-    document.getElementById("btn").style.display = "none";
+      // Die Informationen des Pokémon anzeigen
+      showPokemons(i, currentPokemon);
+    }
   }
 }
 
@@ -167,66 +128,75 @@ function checkSecondType(currentPokemon) {
 }
 
 function openOverlayCard(i) {
-  // Die Overlayay-Karte anzeigen
+  // Die Overlay-Karte anzeigen
   document.getElementById("cardOverlay").style.display = "flex";
   // Das Scrollen des Body-Elements deaktivieren
   document.body.style.overflow = "hidden";
-  // Die Margin des mainContainer-Elements auf 0 setzen
-  document.getElementById("mainContainer").style.marginTop = "0";
 
-  for (let j = 0; j < currentPokemon["types"].length; j++) {
-    let pokemonType = currentPokemon["types"][j]["type"]["name"];
-    currentPokemon = listOfLoadedPokemon[i - 1]; // Da der Index 0-basiert ist, wird `i - 1` verwendet, um den richtigen Index zu erhalten
-    // Generiere den HTML-Code für die Overlayay-Karte mit den aktuellen Pokemon-Daten
-    document.getElementById("cardOverlay").innerHTML = generateOverlayCardHTML(
-      i,
-      currentPokemon
-    );
+  // Alle Elemente mit der Klasse "header" auswählen
+  let headerElements = document.getElementsByClassName("header");
 
-    // Entfernt die vorherige Hintergrundfarbe, bevor die neue Hintergrundfarbe hinzugefügt wird
-    let cardOverlayBack = document.getElementById("cardOverlayBack");
-    cardOverlayBack.classList.remove(
-      "fire",
-      "water",
-      "grass",
-      "electric",
-      "rock",
-      "ground",
-      "bug",
-      "poison",
-      "flying",
-      "psychic",
-      "fighting",
-      "ghost",
-      "ice",
-      "dragon",
-      "dark",
-      "steel",
-      "fairy"
-    );
-    // Füge die Hintergrundfarbe des aktuellen Pokemon-Typs zur Overlayay-Karte hinzu
-    document
-      .getElementById("cardOverlayBack")
-      .classList.add(currentPokemon["types"][0]["type"]["name"]);
-
-    let statsData = renderPokemonStats(i);
-    // Aktualisiere die Buttons der Overlayay-Karte
-    showCardButtons(i);
-
-    // Rufe die Funktion zum Rendern der Moves des aktuellen Pokemons auf
-    renderPokemonMoves(i, currentPokemon);
+  // Für jedes Header-Element die Position und das Z-Index zurücksetzen
+  for (let i = 0; i < headerElements.length; i++) {
+    headerElements[i].style.position = "static";
+    headerElements[i].style.zIndex = "initial";
   }
 
-  // Zeige die Stats des aktuellen Pokemons an
-  showStats(i);
+  // Body-Margin-Top zurücksetzen
+  document.body.style.marginTop = "0";
 
-  // Fügt dem cardOverlay-Element einen Event Listener hinzu, der das Overlayay schließt, wenn darauf geklickt wird
-  document.getElementById("cardOverlay").addEventListener("click", function () {
-    // Das Overlayay ausblenden
-    document.getElementById("cardOverlay").style.display = "none";
-    // Das Scrollen des Body-Elements aktivieren
-    document.body.style.overflow = "auto";
-  });
+  // Aktuelles Pokemon aus der Liste abrufen
+  currentPokemon = listOfLoadedPokemon[i - 1];
+
+  // Overlay-Karte aktualisieren
+  updateOverlayCard(i, currentPokemon);
+}
+
+function updateOverlayCard(i, currentPokemon) {
+  // Den Pokemon-Typ des aktuellen Pokemons abrufen
+  let pokemonType = currentPokemon["types"][0]["type"]["name"];
+
+  // HTML-Code für die Overlay-Karte mit den aktuellen Pokemon-Daten generieren
+  document.getElementById("cardOverlay").innerHTML = generateOverlayCardHTML(
+    i,
+    currentPokemon
+  );
+
+  // Das Element mit der ID "cardOverlayBack" auswählen
+  let cardOverlayBack = document.getElementById("cardOverlayBack");
+
+  // Vorherige Hintergrundfarben entfernen
+  cardOverlayBack.classList.remove(
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "rock",
+    "ground",
+    "bug",
+    "poison",
+    "flying",
+    "psychic",
+    "fighting",
+    "ghost",
+    "ice",
+    "dragon",
+    "dark",
+    "steel",
+    "fairy"
+  );
+
+  // Hintergrundfarbe des aktuellen Pokemon-Typs zur Overlay-Karte hinzufügen
+  cardOverlayBack.classList.add(pokemonType);
+
+  // Statistikdaten des aktuellen Pokemons rendern
+  let statsData = renderPokemonStats(i);
+
+  // Buttons der Overlay-Karte aktualisieren
+  showCardButtons(i);
+
+  // Moves des aktuellen Pokemons rendern
+  renderPokemonMoves(i, currentPokemon);
 }
 
 function closeOverlayCard() {
@@ -243,15 +213,20 @@ function showCardButtons(i) {
   // Setzt das onclick-Attribut des linken Buttons
   leftButton.setAttribute(
     "onclick",
-    `openOverlayCard(${i === 1 ? listOfLoadedPokemon.length : i - 1})`
+    `openOverlayCard(${
+      i === 1 ? listOfLoadedPokemon.length : i - 1
+    }); event.stopPropagation();`
   );
 
   // Setzt das onclick-Attribut des rechten Buttons
   rightButton.setAttribute(
     "onclick",
-    `openOverlayCard(${i >= listOfLoadedPokemon.length ? 1 : i + 1})`
+    `openOverlayCard(${
+      i >= listOfLoadedPokemon.length ? 1 : i + 1
+    }); event.stopPropagation();`
   );
 }
+
 function renderPokemonMoves(i, currentPokemon) {
   // Definieren der aktuellen Sektion, in diesem Fall "moves"
   let currentSection = "moves";
