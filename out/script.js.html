@@ -1,4 +1,32 @@
-let loadedPokemon = 21; // so viele werden am Stück geladen
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let loadedPokemon = 21; // so viele werden am Stück geladen
 let currentLoadedPokemon = 1;
 let listOfLoadedPokemon = [];
 let loading = false; //damit beim mehrmaligen Drücken des Buttons die Funktion nicht mehrmals ausgeführt wird, bevor der Ladevorgang beendet ist
@@ -9,7 +37,7 @@ let loading = false; //damit beim mehrmaligen Drücken des Buttons die Funktion 
  */
 async function loadPokemons() {
   // Schleife für das Laden von Pokémon-Daten von currentLoadedPokemon
-  for (let i = currentLoadedPokemon; i < loadedPokemon; i++) {
+  for (let i = currentLoadedPokemon; i &lt; loadedPokemon; i++) {
     // URL für die Anfrage an die PokeAPI erstellen, um Daten für das aktuelle Pokémon zu erhalten
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     // Auf die Antwort der Anfrage warten und speichern
@@ -56,13 +84,13 @@ function showPokemons(i) {
 // Funktion um den Typ den Pokémon Typ zu laden und anzuzeigen
 function loadPokemonType(i, currentPokemon) {
   // Schleife, um alle Typen des aktuellen Pokémon zu durchlaufen
-  for (let j = 0; j < currentPokemon["types"].length; j++) {
+  for (let j = 0; j &lt; currentPokemon["types"].length; j++) {
     // Den Namen des aktuellen Typs des Pokémon in einer Variable speichern
     let pokemonType = currentPokemon["types"][j]["type"]["name"];
 
     // Das HTML für das Typsymbol des Pokémon zum Element mit der ID `typeCard${i}` hinzufügen
     document.getElementById(`typeCard${i}`).innerHTML += `
-      <div>${fromImageToIcon(pokemonType)}</div>
+      &lt;div>${fromImageToIcon(pokemonType)}&lt;/div>
       `;
   }
 }
@@ -71,7 +99,7 @@ function loadPokemonType(i, currentPokemon) {
 function fromImageToIcon(pokemonType) {
   // Das HTML für das Typsymbol des Pokémon zurückgeben
   return `
-<img src="img/${pokemonType}.png" class="categorieIcon"></img>
+&lt;img src="img/${pokemonType}.png" class="categorieIcon">&lt;/img>
 `;
 }
 
@@ -98,7 +126,7 @@ function filter() {
   document.getElementById("mainContainer").innerHTML = "";
 
   // Durch die Liste der geladenen Pokémon iterieren
-  for (let i = 0; i < listOfLoadedPokemon.length; i++) {
+  for (let i = 0; i &lt; listOfLoadedPokemon.length; i++) {
     // Den Namen des aktuellen Pokémon in Kleinbuchstaben abrufen
     let pokemon = listOfLoadedPokemon[i]["name"].toLowerCase();
     currentPokemon = listOfLoadedPokemon[i];
@@ -125,13 +153,13 @@ function checkSecondType(currentPokemon) {
   if (currentPokemon["types"].length === 2) {
     // Wenn das Pokemon zwei Typen hat, HTML-Code für beide Typen generieren
     return /*html*/ `        
-      <img src="img/${currentPokemon["types"][0]["type"]["name"]}.png" class="categorieIcon">
-      <img src="img/${currentPokemon["types"][1]["type"]["name"]}.png" class="categorieIcon">
+      &lt;img src="img/${currentPokemon["types"][0]["type"]["name"]}.png" class="categorieIcon">
+      &lt;img src="img/${currentPokemon["types"][1]["type"]["name"]}.png" class="categorieIcon">
       `;
   } else {
     // Wenn das Pokemon nur einen Typ hat, HTML-Code für den einen Typ generieren
     return /*html*/ `
-      <img src="img/${currentPokemon["types"][0]["type"]["name"]}.png" class="categorieIcon">
+      &lt;img src="img/${currentPokemon["types"][0]["type"]["name"]}.png" class="categorieIcon">
       `;
   }
 }
@@ -146,7 +174,7 @@ function openOverlayCard(i) {
   let headerElements = document.getElementsByClassName("header");
 
   // Für jedes Header-Element die Position und das Z-Index zurücksetzen
-  for (let i = 0; i < headerElements.length; i++) {
+  for (let i = 0; i &lt; headerElements.length; i++) {
     headerElements[i].style.position = "static";
     headerElements[i].style.zIndex = "initial";
   }
@@ -253,15 +281,15 @@ function renderPokemonMoves(i, currentPokemon) {
   moveDivContainer.classList.add("moveContainer");
 
   // Schleife zum Durchlaufen der Moves des aktuellen Pokemons
-  for (let k = 0; k < listOfLoadedPokemon[i - 1]["moves"].length; k++) {
+  for (let k = 0; k &lt; listOfLoadedPokemon[i - 1]["moves"].length; k++) {
     // Extrahieren des Namens des aktuellen Moves
     let move = listOfLoadedPokemon[i - 1]["moves"][k]["move"]["name"];
 
     // Hinzufügen des HTML-Codes für eine Move-Karte zum Container-Div-Element
     moveDivContainer.innerHTML += `
-      <div class="moveCard" id="moveCard">
-      <div class="move">${move}</div>
-      </div>        
+      &lt;div class="moveCard" id="moveCard">
+      &lt;div class="move">${move}&lt;/div>
+      &lt;/div>        
       `;
   }
 
@@ -286,15 +314,15 @@ function renderPokemonAbility(i, currentPokemon) {
   abilityDivContainer.classList.add("abilityContainer");
 
   // Schleife zum Durchlaufen der Abilities des aktuellen Pokemons
-  for (let j = 0; j < listOfLoadedPokemon[i - 1]["abilities"].length; j++) {
+  for (let j = 0; j &lt; listOfLoadedPokemon[i - 1]["abilities"].length; j++) {
     // Extrahieren des Namens der aktuellen Ability
     let ability = listOfLoadedPokemon[i - 1]["abilities"][j]["ability"]["name"];
 
     // Hinzufügen des HTML-Codes für eine Ability-Karte zum Container-Div-Element
     abilityDivContainer.innerHTML += `
-      <div class="abilityCard" id="moveCard">
-      <div class="ability">${ability}</div>
-      </div>
+      &lt;div class="abilityCard" id="moveCard">
+      &lt;div class="ability">${ability}&lt;/div>
+      &lt;/div>
       
       `;
   }
@@ -309,7 +337,7 @@ function renderPokemonStats(i) {
   // Überprüfung, ob das Pokemon Statistikdaten hat
   if (listOfLoadedPokemon[i - 1]["stats"].length > 0) {
     // Schleife zum Durchlaufen der Statistikdaten des Pokemons
-    for (let j = 0; j < listOfLoadedPokemon[i - 1]["stats"].length; j++) {
+    for (let j = 0; j &lt; listOfLoadedPokemon[i - 1]["stats"].length; j++) {
       // Extrahieren der Basisstatistik für den aktuellen Statistikwert
       let stats = listOfLoadedPokemon[i - 1].stats[j].base_stat;
       // Hinzufügen der Basisstatistik zum `datas`-Array
@@ -319,3 +347,26 @@ function renderPokemonStats(i) {
   // Rückgabe des `datas`-Arrays mit den Statistikdaten
   return datas;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#loadPokemons">loadPokemons</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jun 04 2023 19:34:35 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
